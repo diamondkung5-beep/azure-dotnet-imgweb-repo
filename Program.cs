@@ -5,6 +5,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System.Net.Http;
 using System.Threading.Tasks;
+using System;
+using Microsoft.AspNetCore.Http.Features;
 
 // Auto deployment test, ignore comment.
 
@@ -34,7 +36,10 @@ namespace Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddSingleton<Options>(_configuration.Get<Options>());
-            services.AddSingleton<HttpClient>(new HttpClient());
+            // Use IHttpClientFactory to create HttpClient instances with policies and timeouts
+            services.AddHttpClient("images", client => { client.Timeout = TimeSpan.FromSeconds(30); });
+            // Limit multipart body length to 10 MB at server level
+            services.Configure<FormOptions>(options => { options.MultipartBodyLengthLimit = 10 * 1024 * 1024; });
             services.AddRazorPages();
         }
 

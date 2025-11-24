@@ -1,0 +1,28 @@
+## Ignore build outputs
+/bin/
+/obj/
+
+# Visual Studio / Rider
+/.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Rider
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# NuGet
+packages/
+*.nupkg
+
+# Logs
+*.log
+
+# Runtime
+*.pid
+*.seed
